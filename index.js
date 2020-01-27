@@ -1,111 +1,26 @@
 const express = require('express');
-const path = require('path');
+const path = require('path'); //JS module that deals with paths
+const phones = require('./Phones');
 
 const app = express(); //initializing a variable app with an object "express"
 
-const phones = [
-    
-        {
-          id: 1,
-          title: "Google Pixel",
-          img: "img/product-1.png",
-          price: 10,
-          company: "GOOGLE",
-          info:
-            "Lorem ipsum dolor amet offal butcher quinoa sustainable gastropub, echo park actually green juice sriracha paleo. Brooklyn sriracha semiotics, DIY coloring book mixtape craft beer sartorial hella blue bottle. Tote bag wolf authentic try-hard put a bird on it mumblecore. Unicorn lumbersexual master cleanse blog hella VHS, vaporware sartorial church-key cardigan single-origin coffee lo-fi organic asymmetrical. Taxidermy semiotics celiac stumptown scenester normcore, ethical helvetica photo booth gentrify.",
-          inCart: false,
-          count: 0,
-          total: 0
-        },
-        {
-          id: 2,
-          title: "Samsung S7",
-          img: "img/product-2.png",
-          price: 16,
-          company: "SAMSUNG",
-          info:
-            "Lorem ipsum dolor amet offal butcher quinoa sustainable gastropub, echo park actually green juice sriracha paleo. Brooklyn sriracha semiotics, DIY coloring book mixtape craft beer sartorial hella blue bottle. Tote bag wolf authentic try-hard put a bird on it mumblecore. Unicorn lumbersexual master cleanse blog hella VHS, vaporware sartorial church-key cardigan single-origin coffee lo-fi organic asymmetrical. Taxidermy semiotics celiac stumptown scenester normcore, ethical helvetica photo booth gentrify.",
-          inCart: false,
-          count: 0,
-          total: 0
-        },
-        {
-          id: 3,
-          title: "HTC 10 - Black",
-          img: "img/product-3.png",
-          price: 8,
-          company: "htc",
-          info:
-            "Lorem ipsum dolor amet offal butcher quinoa sustainable gastropub, echo park actually green juice sriracha paleo. Brooklyn sriracha semiotics, DIY coloring book mixtape craft beer sartorial hella blue bottle. Tote bag wolf authentic try-hard put a bird on it mumblecore. Unicorn lumbersexual master cleanse blog hella VHS, vaporware sartorial church-key cardigan single-origin coffee lo-fi organic asymmetrical. Taxidermy semiotics celiac stumptown scenester normcore, ethical helvetica photo booth gentrify.",
-          inCart: false,
-          count: 0,
-          total: 0
-        },
-        {
-          id: 4,
-          title: "HTC 10 - White",
-          img: "img/product-4.png",
-          price: 18,
-          company: "htc",
-          info:
-            "Lorem ipsum dolor amet offal butcher quinoa sustainable gastropub, echo park actually green juice sriracha paleo. Brooklyn sriracha semiotics, DIY coloring book mixtape craft beer sartorial hella blue bottle. Tote bag wolf authentic try-hard put a bird on it mumblecore. Unicorn lumbersexual master cleanse blog hella VHS, vaporware sartorial church-key cardigan single-origin coffee lo-fi organic asymmetrical. Taxidermy semiotics celiac stumptown scenester normcore, ethical helvetica photo booth gentrify.",
-          inCart: false,
-          count: 0,
-          total: 0
-        },
-        {
-          id: 5,
-          title: "HTC Desire 626s",
-          img: "img/product-5.png",
-          price: 24,
-          company: "htc",
-          info:
-            "Lorem ipsum dolor amet offal butcher quinoa sustainable gastropub, echo park actually green juice sriracha paleo. Brooklyn sriracha semiotics, DIY coloring book mixtape craft beer sartorial hella blue bottle. Tote bag wolf authentic try-hard put a bird on it mumblecore. Unicorn lumbersexual master cleanse blog hella VHS, vaporware sartorial church-key cardigan single-origin coffee lo-fi organic asymmetrical. Taxidermy semiotics celiac stumptown scenester normcore, ethical helvetica photo booth gentrify.",
-          inCart: false,
-          count: 0,
-          total: 0
-        },
-        {
-          id: 6,
-          title: "Vintage Iphone",
-          img: "img/product-6.png",
-          price: 17,
-          company: "apple",
-          info:
-            "Lorem ipsum dolor amet offal butcher quinoa sustainable gastropub, echo park actually green juice sriracha paleo. Brooklyn sriracha semiotics, DIY coloring book mixtape craft beer sartorial hella blue bottle. Tote bag wolf authentic try-hard put a bird on it mumblecore. Unicorn lumbersexual master cleanse blog hella VHS, vaporware sartorial church-key cardigan single-origin coffee lo-fi organic asymmetrical. Taxidermy semiotics celiac stumptown scenester normcore, ethical helvetica photo booth gentrify.",
-          inCart: false,
-          count: 0,
-          total: 0
-        },
-        {
-          id: 7,
-          title: "Iphone 7",
-          img: "img/product-7.png",
-          price: 30,
-          company: "apple",
-          info:
-            "Lorem ipsum dolor amet offal butcher quinoa sustainable gastropub, echo park actually green juice sriracha paleo. Brooklyn sriracha semiotics, DIY coloring book mixtape craft beer sartorial hella blue bottle. Tote bag wolf authentic try-hard put a bird on it mumblecore. Unicorn lumbersexual master cleanse blog hella VHS, vaporware sartorial church-key cardigan single-origin coffee lo-fi organic asymmetrical. Taxidermy semiotics celiac stumptown scenester normcore, ethical helvetica photo booth gentrify.",
-          inCart: false,
-          count: 0,
-          total: 0
-        },
-        {
-          id: 8,
-          title: "Smashed Iphone",
-          img: "img/product-8.png",
-          price: 2,
-          company: "apple",
-          info:
-            "Lorem ipsum dolor amet offal butcher quinoa sustainable gastropub, echo park actually green juice sriracha paleo. Brooklyn sriracha semiotics, DIY coloring book mixtape craft beer sartorial hella blue bottle. Tote bag wolf authentic try-hard put a bird on it mumblecore. Unicorn lumbersexual master cleanse blog hella VHS, vaporware sartorial church-key cardigan single-origin coffee lo-fi organic asymmetrical. Taxidermy semiotics celiac stumptown scenester normcore, ethical helvetica photo booth gentrify.",
-          inCart: false,
-          count: 0,
-          total: 0
-        }
-      
-]
 
+
+//MiddleWare function
+
+const logger = (req, res, next) => {
+  console.log("MiddleWare is runnning...>>>");
+  console.log(`${req.protocol}://${req.get('host')}${req.originalUrl}`);
+  next();
+}
+
+app.use(logger);
+
+
+
+//Creating a route that will have access to the "request" and "response" objects.
 app.get('/api/phones',(req,res) => {
-    res.json(members);
+    res.json(phones);
 });
 
 //Creating a static folder
@@ -115,6 +30,7 @@ app.get ('/' , (req, res)=>{
     res.send('<h2>Agwa Daniel!!</h2>')
 })
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000; //First check for a port number in the environment variables, then use 5000 if there isnt any
+
 
 app.listen(PORT, ()=>{console.log(`Server started on port ${PORT}`)}); 
