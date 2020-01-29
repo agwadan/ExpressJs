@@ -2,20 +2,13 @@ const express = require('express');
 const path = require('path'); //JS module that deals with paths
 const phones = require('./Phones');
 
+const logger = require('./middleware/logger');
+
 const app = express(); //initializing a variable app with an object "express"
 
 
-
-//MiddleWare function
-
-const logger = (req, res, next) => {
-  console.log("MiddleWare is runnning...>>>");
-  console.log(`${req.protocol}://${req.get('host')}${req.originalUrl}`);
-  next();
-}
-
+//Calling the middleware function
 app.use(logger);
-
 
 
 //Creating a route that will have access to the "request" and "response" objects.
