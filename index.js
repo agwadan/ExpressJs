@@ -10,7 +10,10 @@ const app = express(); //initializing a variable app with an object "express"
 //Calling the middleware function
 //app.use(logger);
 
+//Body Parser Middleware
 
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
 
 
 //Creating a static folder

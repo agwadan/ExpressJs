@@ -11,6 +11,8 @@ router.get('/',(req,res) => {
 //GEts single phone
 router.get('/:id', (req, res)=>{
     const found = phones.some(phone => phone.id === parseInt(req.params.id));
+
+    //Checking if the id actually exists.
     if(found){
         res.json(phones.filter(phone => phone.id === parseInt(req.params.id)));
     } else {
@@ -18,6 +20,11 @@ router.get('/:id', (req, res)=>{
     }
 
     
-})
+});
+
+//Create a new item(Phone).
+router.post('/', (req, res) => {
+    res.send(req.body);
+});
 
 module.exports= router;
