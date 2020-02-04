@@ -99,4 +99,4 @@ const phones = [
   
 ]
 
-module.export = phones;
+module.exports = phones;
