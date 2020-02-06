@@ -1,4 +1,5 @@
 const express = require('express');
+const uuid = require('uuid');
 const router = express.Router();
 const phones = require('../../Phones');
 
@@ -24,7 +25,20 @@ router.get('/:id', (req, res)=>{
 
 //Create a new item(Phone).
 router.post('/', (req, res) => {
-    res.send(req.body);
+    newPhone = {
+    id: uuid.v4(),
+    title: req.body.title,
+    img: req.body.img,
+    status: 'active'
+    }
+
+    if (!newPhone.title || !newPhone.img){
+       return res.status(400).json({msg: "Please include a title and upload an image"});
+    }
+    
+    phones.push(newPhone);
+    res.json(phones);
+
 });
 
 module.exports= router;
