@@ -41,4 +41,44 @@ router.post('/', (req, res) => {
 
 });
 
+//Update Phones List
+
+//Put request is used below when updating something on the server.
+router.put('/:id', (req, res)=>{
+    const found = phones.some(phone => phone.id === parseInt(req.params.id));
+
+    //Checking if the id actually exists.
+    if(found){
+        const updatePhone = req.body;
+        phones.forEach(member => {
+            if (phone.id === parseInt(req.params.id)){
+                phone.title = updatePhone.title ? updatePhone.title : phone.title;
+                phone.img = updatePhone.img ?  updatePhone.img : phone.img;
+
+                res.json({msg: 'Phone updated', phone})
+            }
+        })
+        res.json(phones.filter(phone => phone.id === parseInt(req.params.id)));
+    } else {
+        res.status(400).json({msg: `The phone with the id of ${req.params.id} doesn't exist.`});
+    }
+
+    
+});
+
+//Delete member
+router.delete('/:id', (req, res)=>{
+    const found = phones.some(phone => phone.id === parseInt(req.params.id));
+
+    //Checking if the id actually exists.
+    if(found){
+        res.json({msg: 'Phone deleted', phones: phones.filter(phone => phone.id !== parseInt(req.params.id))});
+    } else {
+        res.status(400).json({msg: `The phone with the id of ${req.params.id} doesn't exist.`});
+    }
+
+    
+});
+
+
 module.exports= router;
