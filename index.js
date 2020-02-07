@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path'); //JS module that deals with paths
 const exphbs = require('express-handlebars');// importing express handlepars packages for use.
-
+const phones = require('./Phones')
 
 const logger = require('./middleware/logger');
 
@@ -13,7 +13,8 @@ const app = express(); //initializing a variable app with an object "express"
 
 
 //Handlebars Middleware
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+ app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+//app.engine('handlebars', exphbs({defaultLayout: 'forms'}));
 app.set('view engine', 'handlebars');
 
 
@@ -26,7 +27,8 @@ app.use(express.urlencoded({extended: false}));
 //Homepage route
 app.get('/', (req, res) => {
     res.render('index', {
-        title: 'Phone Application'
+        title: 'Phone Application',
+        phones
     })
   
 });

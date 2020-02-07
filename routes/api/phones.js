@@ -28,16 +28,18 @@ router.post('/', (req, res) => {
     newPhone = {
     id: uuid.v4(),
     title: req.body.title,
-    img: req.body.img,
+    price: req.body.price,
     status: 'active'
     }
 
-    if (!newPhone.title || !newPhone.img){
+    if (!newPhone.title || !newPhone.price){
        return res.status(400).json({msg: "Please include a title and upload an image"});
     }
     
     phones.push(newPhone);
-    res.json(phones);
+    //res.json(phones); //This renders Json on the page. However, you might want to redirect to another page...
+
+    res.redirect('/');
 
 });
 
@@ -53,7 +55,7 @@ router.put('/:id', (req, res)=>{
         phones.forEach(member => {
             if (phone.id === parseInt(req.params.id)){
                 phone.title = updatePhone.title ? updatePhone.title : phone.title;
-                phone.img = updatePhone.img ?  updatePhone.img : phone.img;
+                phone.price = updatePhone.price ?  updatePhone.price : phone.price;
 
                 res.json({msg: 'Phone updated', phone})
             }

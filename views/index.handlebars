@@ -1,1 +1,11 @@
-<h1>PHONES</h1>
+<h1 class="text-center mb-3">{{title}}</h1>
+<h4>Phones</h4>
+
+<!--Looping through the list of items in the array-->
+<ul class="list-group">
+    {{#each phones}}
+
+        <li class="list-group-item">{{this.title}}: {{this.price}}</li>
+
+    {{/each}}
+</ul>
